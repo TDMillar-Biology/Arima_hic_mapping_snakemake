@@ -1,4 +1,8 @@
-# mapping_pipeline has been updated with an additional trimming option!
+# Fork of the hic mapping pipeline from Arima Genomics implemented as snakemake
+
 Mapping pipeline for data generated using Arima-HiC.
 
-For detailed description and usage example see user guide "Arima_Mapping_UserGuide.pdf (v03)"
+See "Arima_Mapping_UserGuide.pdf (v03)" for a write up on how the pipeline works. At a later date I'll add my own usage instructions for this repo. 
+
+
+
