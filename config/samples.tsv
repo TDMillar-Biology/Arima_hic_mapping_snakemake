@@ -1,0 +1,3 @@
+sample	fq1	fq2
+BL36283	data/fastq/36283_BL_S2_L001_R1_001.fastq.gz	data/fastq/36283_BL_S2_L001_R2_001.fastq.gz
+BL8765	data/fastq/BL8765_S1_L001_R1_001.fastq.gz	data/fastq/BL8765_S1_L001_R2_001.fastq.gz

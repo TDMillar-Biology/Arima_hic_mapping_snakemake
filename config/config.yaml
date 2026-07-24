@@ -8,7 +8,7 @@ reference: "data/references/ISO1_r6.58/dmel-all-chromosome-r6.58.fasta"
 # Pipeline Parameters
 # -----------------------------------------------------------------------------
 mapq_filter: 10
-threads: 30
+threads: 8 # threads per process ('snakemake --cores all' will parallelize!)
 
 # Java heap limits for Picard (matching the original bash script)
 rg_memory: "4G"
@@ -17,13 +17,14 @@ markdup_memory: "30G"
 # -----------------------------------------------------------------------------
 # Executables & Scripts
 # -----------------------------------------------------------------------------
-# No need to change this if you're using the provided conda env in workflow/envs/hic.yaml!
+# No need to change this if you're using the provided conda env in workflow/envs/hic_mapping.yaml! (snakemake --use-conda)
 # In a conda pinch? provide absolute paths (e.g., "/software/bwa/bwa-0.7.12/bwa").
-bwa: "bwa"
+bwa: "bwa-mem2"
 samtools: "samtools"
 picard: "picard"
 
 # Arima Perl Scripts (ensure these are placed in the workflow/scripts/ directory)
+# best not to change this =)
 filter_script: "workflow/scripts/filter_five_end.pl"
 combiner_script: "workflow/scripts/two_read_bam_combiner.pl"
 stats_script: "workflow/scripts/get_stats.pl"

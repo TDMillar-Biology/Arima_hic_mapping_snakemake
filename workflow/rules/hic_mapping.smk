@@ -1,10 +1,29 @@
 # -----------------------------------------------------------------------------
-# Step 1: FASTQ to BAM
+# Step 0: Index Ref Genome
+# -----------------------------------------------------------------------------
+rule index_reference:
+    input:
+        assembly = config["reference"]
+    output:
+        fai = config["reference"] + ".fai",
+        bwt = config["reference"] + ".0123"
+    conda:
+        "../envs/hic_mapping.yaml"
+    threads: 4
+    shell:
+        """
+        {config[samtools]} faidx {input.assembly}
+        {config[bwa]} index {input.assembly}
+        """
+
+# -----------------------------------------------------------------------------
+# Step 1: map FASTQs independently
 # -----------------------------------------------------------------------------
 rule bwa_mem_r1:
     input:
         fq = lambda wildcards: samples_df.loc[wildcards.sample, "fq1"],
-        ref = config["reference"]
+        ref = config["reference"],
+        bwt = config["reference"] + ".0123"
     output:
         bam = temp("tmp/{sample}_1.bam")
     threads: config["threads"]
@@ -18,7 +37,8 @@ rule bwa_mem_r1:
 rule bwa_mem_r2:
     input:
         fq = lambda wildcards: samples_df.loc[wildcards.sample, "fq2"],
-        ref = config["reference"]
+        ref = config["reference"],
+        bwt = config["reference"] + ".0123"
     output:
         bam = temp("tmp/{sample}_2.bam")
     threads: config["threads"]

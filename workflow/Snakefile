@@ -1,0 +1,15 @@
+import pandas as pd
+
+configfile: "config/config.yaml"
+
+# Load sample definitions
+samples_df = pd.read_csv("config/samples.tsv", sep="\t").set_index("sample", drop=False)
+SAMPLES = samples_df.index.tolist()
+
+rule all:
+    input:
+        expand("results/{sample}/hic_mapped.bam", sample=SAMPLES),
+        expand("results/{sample}/hic_mapped.bam.bai", sample=SAMPLES),
+        expand("results/{sample}/hic_stats.txt", sample=SAMPLES)
+
+include: "rules/hic_mapping.smk"
