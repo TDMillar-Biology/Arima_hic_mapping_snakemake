@@ -1,0 +1,10 @@
+name: hic_mapping
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bwa =0.7.17
+  - samtools >=1.10
+  - picard >=2.27.0
+  - perl =5.32
