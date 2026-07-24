@@ -1,5 +1,20 @@
-data/*
-results/*
-tmp
+# Ignore Snakemake and Git internals
 .snakemake
-.git
+.git 
+
+# Ignore results contents but keep the directory
+results/*
+!results/.gitkeep
+
+# Ignore tmp contents but keep the directory
+tmp/*
+!tmp/.gitkeep
+
+# Handle the nested data directories
+data/*
+!data/references/
+!data/fastq/
+data/references/*
+data/fastq/*
+!data/references/.gitkeep
+!data/fastq/.gitkeep
