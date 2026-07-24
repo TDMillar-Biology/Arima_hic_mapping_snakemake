@@ -1,0 +1,10 @@
+name: cooler
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python >=3.8
+  - cooler >=0.9.1
+  - matplotlib >=3.4.0
+  - numpy >=1.20.0

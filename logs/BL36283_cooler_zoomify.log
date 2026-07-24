@@ -1,0 +1,44 @@
+INFO:cooler.cli.zoomify:Recursively aggregating "results/BL36283/hic_10kb.cool"
+INFO:cooler.cli.zoomify:Writing to "results/BL36283/hic.mcool"
+INFO:cooler._reduce:Copying base matrices and producing 6 new zoom levels.
+INFO:cooler._reduce:Bin size: 10000
+INFO:cooler._reduce:Aggregating from 10000 to 20000.
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL36283/hic.mcool::/resolutions/20000"
+INFO:cooler.create:Writing chroms
+INFO:cooler.create:Writing bins
+INFO:cooler.create:Writing pixels
+INFO:cooler._reduce:0 36981
+INFO:cooler.create:Writing indexes
+INFO:cooler.create:Writing info
+INFO:cooler._reduce:Aggregating from 20000 to 40000.
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL36283/hic.mcool::/resolutions/40000"
+INFO:cooler.create:Writing chroms
+INFO:cooler.create:Writing bins
+INFO:cooler.create:Writing pixels
+INFO:cooler._reduce:0 26300
+INFO:cooler.create:Writing indexes
+INFO:cooler.create:Writing info
+INFO:cooler._reduce:Aggregating from 40000 to 80000.
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL36283/hic.mcool::/resolutions/80000"
+INFO:cooler.create:Writing chroms
+INFO:cooler.create:Writing bins
+INFO:cooler.create:Writing pixels
+INFO:cooler._reduce:0 19372
+INFO:cooler.create:Writing indexes
+INFO:cooler.create:Writing info
+INFO:cooler._reduce:Aggregating from 80000 to 160000.
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL36283/hic.mcool::/resolutions/160000"
+INFO:cooler.create:Writing chroms
+INFO:cooler.create:Writing bins
+INFO:cooler.create:Writing pixels
+INFO:cooler._reduce:0 14727
+INFO:cooler.create:Writing indexes
+INFO:cooler.create:Writing info
+INFO:cooler._reduce:Aggregating from 160000 to 320000.
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL36283/hic.mcool::/resolutions/320000"
+INFO:cooler.create:Writing chroms
+INFO:cooler.create:Writing bins
+INFO:cooler.create:Writing pixels
+INFO:cooler._reduce:0 11410
+INFO:cooler.create:Writing indexes
+INFO:cooler.create:Writing info
