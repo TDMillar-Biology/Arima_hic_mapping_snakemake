@@ -1,39 +1,47 @@
-# -----------------------------------------------------------------------------
-# Reference Genome & Input/Output
-# -----------------------------------------------------------------------------
-# path to reference genome for mapping 
+# =============================================================================
+# PART 1: USER CONFIGURATION 
+# Modify these parameters to fit your specific dataset and experiment.
+# =============================================================================
+
+# Path to the indexed reference genome assembly (FASTA format)
 reference: "data/references/ISO1_r6.58/dmel-all-chromosome-r6.58.fasta"
 
-# -----------------------------------------------------------------------------
-# Mapping Pipeline Parameters
-# -----------------------------------------------------------------------------
+# Base resolution for the initial Hi-C contact matrix (in base pairs).
+# 10000 = 10kb resolution.
+base_bin_size: 10000
+
+# Minimum Mapping Quality (MAPQ) threshold to consider an alignment valid.
+# Recommend starting with 10 and seeing how your results look, potentially increasing the value
 mapq_filter: 10
-threads: 8 # threads per process ('snakemake --cores all' will parallelize!)
 
-# Java heap limits for Picard (matching the original bash script)
+# -----------------------------------------------------------------------------
+# Compute Resources
+# -----------------------------------------------------------------------------
+
+# Number of threads allocated per rule. 
+# Note: Snakemake will automatically parallelize rules if you run `snakemake --cores N`
+threads: 8 
+
+# Java virtual machine memory limits for Picard tools.
+# - For local testing on a desktop/laptop: Keep this around "8G" to avoid OOM kills.
+# - For execution on a Slurm cluster: Increase to "30G" for large datasets.
 rg_memory: "4G"
-markdup_memory: "30G"
+markdup_memory: "8G" 
 
-# -----------------------------------------------------------------------------
-# Mapping Executables & Scripts
-# -----------------------------------------------------------------------------
-# No need to change this if you're using the provided conda env in workflow/envs/hic_mapping.yaml! (snakemake --use-conda)
-# In a conda pinch? provide absolute paths (e.g., "/software/bwa/bwa-0.7.12/bwa").
+
+# =============================================================================
+# PART 2: SYSTEM & PIPELINE INTERNALS
+# Do not modify these variables unless you are restructuring the workflow.
+# =============================================================================
+
+# Conda handles these dependencies automatically via workflow/envs/
 bwa: "bwa-mem2"
 samtools: "samtools"
 picard: "picard"
+pairtools: "pairtools"
+cooler: "cooler"
 
-# Arima Perl Scripts (ensure these are placed in the workflow/scripts/ directory)
-# best not to change this =)
+# Arima legacy scripts
 filter_script: "workflow/scripts/filter_five_end.pl"
 combiner_script: "workflow/scripts/two_read_bam_combiner.pl"
 stats_script: "workflow/scripts/get_stats.pl"
-
-# -----------------------------------------------------------------------------
-# Matrix Generation Parameters
-# -----------------------------------------------------------------------------
-base_bin_size: 10000
-
-# Executables
-pairtools: "pairtools"
-cooler: "cooler"
