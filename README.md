@@ -52,6 +52,30 @@ results/{sample}/
     └── pipeline_attrition.tsv
 ```
 
+# Citations & Software Acknowledgements
+If you use this pipeline in your research, check back ASAP for the pipeline citation, and dont forget to cite the tools below which all power the pipeline:
+
+```
+Snakemake: Mölder, F., Jablonski, K.P., Letcher, B., Hall, M.B., Tomkins-Tinch, C.H., Sochat, V., Forster, J., Lee, S., Twardziok, S.O., Kanitz, A., Wilm, A., Holtgrewe, M., Rahmann, S., Osterweil, S., & Köster, J. (2021). Sustainable data analysis with Snakemake. F1000Research, 10, 33.
+
+BWA-MEM2: Vasimuddin Md, Misra, S., Li, H., & Aluru, S. (2019). Efficient Architecture-Aware Acceleration of BWA-MEM for Multicore Systems. IEEE International Parallel and Distributed Processing Symposium (IPDPS).
+
+Pairtools: Open2C, Goloborodko, A., Bradley, J., Mach, P., Schalbetter, S., & Fudenberg, G. (2023). Pairtools: from sequencing data to chromosome contacts. bioRxiv.
+
+Cooler: Abdennur, N., & Mirny, L. A. (2020). Cooler: scalable storage for Hi-C data and other genomically labeled arrays. Bioinformatics, 36(1), 311-316.
+
+ICE Balancing: Imakaev, M., Fudenberg, G., McCord, R. P., Naumova, N., Goloborodko, A., Lajoie, B. R., Dekker, J., & Mirny, L. A. (2012). Iterative correction of Hi-C data reveals structural organization of the genome. Nature Methods, 9(10), 999-1003.
+
+Samtools: Danecek, P., Bonfield, J. K., Liddle, J., Marshall, J., Ohan, V., Pollard, M. O., Whitwham, A., Keane, T., McCarthy, S. A., Davies, R. M., & Li, H. (2021). Twelve years of SAMtools and BCFtools. GigaScience, 10(2).
+
+Cutadapt: Martin, M. (2011). Cutadapt removes adapter sequences from high-throughput sequencing reads. EMBnet.journal, 17(1), 10-12.
+
+Picard: Broad Institute. Picard Tools. http://broadinstitute.github.io/picard/
+
+Arima Genomics: The foundational Perl filtering scripts and mapping logic are derived from the official Arima Hi-C Mapping Pipeline.
+
+```
+
 # Pipeline DAG
 An overview of the Snakemake execution graph.
 ![Arima Hi-C Mapping Pipeline DAG](figures/dag.png)
