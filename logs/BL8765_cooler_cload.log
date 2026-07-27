@@ -1,5 +1,19 @@
-INFO:cooler.create:Writing chunk 0: /home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmps_e_y7tn.multi.cool::0
-INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmps_e_y7tn.multi.cool::/0"
+INFO:cooler.create:Writing chunk 0: /home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmp1agpmulp.multi.cool::0
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmp1agpmulp.multi.cool::/0"
+INFO:cooler.create:Writing chroms
+INFO:cooler.create:Writing bins
+INFO:cooler.create:Writing pixels
+INFO:cooler.create:Writing indexes
+INFO:cooler.create:Writing info
+INFO:cooler.create:Writing chunk 1: /home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmp1agpmulp.multi.cool::1
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmp1agpmulp.multi.cool::/1"
+INFO:cooler.create:Writing chroms
+INFO:cooler.create:Writing bins
+INFO:cooler.create:Writing pixels
+INFO:cooler.create:Writing indexes
+INFO:cooler.create:Writing info
+INFO:cooler.create:Writing chunk 2: /home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmp1agpmulp.multi.cool::2
+INFO:cooler.create:Creating cooler at "/home/mahullocaladmin/Desktop/projects/Arima_hic_mapping_snakemake/results/BL8765/tmp1agpmulp.multi.cool::/2"
 INFO:cooler.create:Writing chroms
 INFO:cooler.create:Writing bins
 INFO:cooler.create:Writing pixels
@@ -11,7 +25,7 @@ INFO:cooler.create:Writing chroms
 INFO:cooler.create:Writing bins
 INFO:cooler.create:Writing pixels
 INFO:cooler._reduce:n_merge_epochs: 1
-INFO:cooler._reduce:nnzs: [37308]
-INFO:cooler._reduce:records consumed: [np.int64(37308)]
+INFO:cooler._reduce:nnzs: [1832534, 1828826, 1192218]
+INFO:cooler._reduce:records consumed: [np.int64(1832534), np.int64(1828826), np.int64(1192218)]
 INFO:cooler.create:Writing indexes
 INFO:cooler.create:Writing info

@@ -1,2 +1,1 @@
-snakemake --dag > figures/dag.tmp
-cat figures/dag.tmp | dot -Tpng > figures/dag.png
+snakemake --dag | dot -Tpng > figures/dag.png

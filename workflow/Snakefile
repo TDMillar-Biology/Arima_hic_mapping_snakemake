@@ -12,8 +12,11 @@ rule all:
 		expand("results/{sample}/hic_mapped.bam.bai", sample=SAMPLES),
 		expand("results/{sample}/hic_stats.txt", sample=SAMPLES),
 		expand("results/{sample}/hic.mcool", sample=SAMPLES),
-		expand("results/{sample}/hic_heatmap.png", sample=SAMPLES)
+		expand("results/{sample}/reports/mapping_report.txt", sample=SAMPLES),
+		expand("results/{sample}/reports/pipeline_attrition.tsv", sample=SAMPLES),
+		expand("results/{sample}/heatmaps/hic_heatmap_WG_absolute.pdf", sample=SAMPLES)
 
 include: "rules/hic_mapping.smk",
 include: "rules/pairtools.smk",
-include: "rules/plotting.smk"
+include: "rules/plotting.smk",
+include: "rules/qc.smk"

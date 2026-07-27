@@ -14,25 +14,24 @@ rule get_chrom_sizes:
 # -----------------------------------------------------------------------------
 # Step 7: Parse BAM to Valid Pairs
 # -----------------------------------------------------------------------------
-# Since the BAM is coordinate-sorted and contains marked duplicates, we 
-# stream it through samtools to drop duplicates (-F 1024), name-sort it on 
-# the fly, and pipe the SAM output directly into pairtools.
+# Bypasses pairtools parse. Name-sorts the deduplicated Arima BAM, extracts 
+# BEDPE format, and uses awk to print a standard 7-column pairs file for cooler.
 rule bam_to_pairs:
     input:
-        bam = "results/{sample}/hic_mapped.bam",
-        chrom_sizes = "results/{sample}/chrom.sizes"
+        bam = "results/{sample}/hic_mapped.bam"
     output:
         pairs = "results/{sample}/hic.pairs"
     log:
         "logs/{sample}_bam_to_pairs.log"
     threads: config["threads"]
-    conda: "../envs/pairtools.yaml"
+    resources:
+        mem_mb = 16000
+    conda: "../envs/matrix_prep.yaml"
     shell:
         """
-        {config[samtools]} view -h -F 1024 -@ {threads} {input.bam} 2> {log} | \
-        {config[samtools]} sort -n -@ {threads} -O SAM - 2>> {log} | \
-        {config[pairtools]} parse -c {input.chrom_sizes} --drop-seq 2>> {log} | \
-        {config[pairtools]} sort --nproc {threads} -o {output.pairs} 2>> {log}
+        {config[samtools]} sort -n -@ {threads} {input.bam} 2> {log} | \
+        bedtools bamtobed -bedpe -i - 2>> {log} | \
+        awk -v OFS="\\t" '$1 != "." && $4 != "." {{print $7, $1, $2+1, $4, $5+1, $9, $10}}' > {output.pairs} 2>> {log}
         """
 
 # -----------------------------------------------------------------------------
@@ -59,9 +58,7 @@ rule cooler_cload:
 # -----------------------------------------------------------------------------
 # Step 9: Generate Multi-Resolution Matrix
 # -----------------------------------------------------------------------------
-# The --no-balance flag is applied here to bypass iterative correction 
-# algorithms (ICE/KR). This ensures the downstream matrices retain raw, 
-# absolute contact frequencies rather than normalized weights.
+
 rule cooler_zoomify:
     input:
         cool = "results/{sample}/hic_10kb.cool"
@@ -73,7 +70,9 @@ rule cooler_zoomify:
     conda: "../envs/cooler.yaml"
     shell:
         """
+        # Apply default ICE balancing natively
         {config[cooler]} zoomify \
+            --balance \
             -n {threads} \
             -o {output.mcool} \
             {input.cool} &> {log}

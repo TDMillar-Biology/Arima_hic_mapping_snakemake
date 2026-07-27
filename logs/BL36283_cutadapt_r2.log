@@ -1,0 +1,11 @@
+This is cutadapt 5.2 with Python 3.13.14
+Command line parameters: -u 5 -o tmp/BL36283_2_trimmed.fastq.gz data/fastq/36283_BL_S2_L001_R2_001.fastq.gz
+Processing single-end reads on 1 core ...
+
+=== Summary ===
+
+Total reads processed:              59,750,426
+Reads written (passing filters):    59,750,426 (100.0%)
+
+Total basepairs processed: 9,022,314,326 bp
+Total written (filtered):  8,723,562,196 bp (96.7%)

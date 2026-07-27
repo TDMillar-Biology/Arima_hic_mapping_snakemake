@@ -8,3 +8,4 @@ dependencies:
   - samtools >=1.10
   - picard >=2.27.0
   - perl =5.32
+  - cutadapt >=4.0

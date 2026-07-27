@@ -17,36 +17,79 @@ rule index_reference:
         """
 
 # -----------------------------------------------------------------------------
-# Step 1: map FASTQs independently
+# Step 1A: 5' Trim (Read 1)
+# -----------------------------------------------------------------------------
+rule cutadapt_r1:
+    input:
+        fq = lambda wildcards: samples_df.loc[wildcards.sample, "fq1"]
+    output:
+        fq_trimmed = "tmp/{sample}_1_trimmed.fastq.gz"
+    log:
+        "logs/{sample}_cutadapt_r1.log"
+    threads: 1
+    conda: "../envs/hic_mapping.yaml"
+    shell:
+        """
+        cutadapt -u 5 -o {output.fq_trimmed} {input.fq} > {log} 2>&1
+        """
+
+# -----------------------------------------------------------------------------
+# Step 1B: BWA-MEM (Read 1)
 # -----------------------------------------------------------------------------
 rule bwa_mem_r1:
     input:
-        fq = lambda wildcards: samples_df.loc[wildcards.sample, "fq1"],
-        ref = config["reference"],
-        bwt = config["reference"] + ".0123"
+        fq = "tmp/{sample}_1_trimmed.fastq.gz",
+        ref = config["reference"]
     output:
-        bam = temp("tmp/{sample}_1.bam")
+        bam = "tmp/{sample}_1.bam"
+    log:
+        "logs/{sample}_bwa_r1.log"
     threads: config["threads"]
+    resources:
+        mem_mb = 8000
     conda: "../envs/hic_mapping.yaml"
     shell:
         """
-        {config[bwa]} mem -t {threads} {input.ref} {input.fq} | \
-        {config[samtools]} view -@ {threads} -Sb - > {output.bam}
+        {config[bwa]} mem -t {threads} {input.ref} {input.fq} 2> {log} | \
+        {config[samtools]} view -h -Sb - > {output.bam} 2>> {log}
         """
 
-rule bwa_mem_r2:
+# -----------------------------------------------------------------------------
+# Step 2A: 5' Trim (Read 2)
+# -----------------------------------------------------------------------------
+rule cutadapt_r2:
     input:
-        fq = lambda wildcards: samples_df.loc[wildcards.sample, "fq2"],
-        ref = config["reference"],
-        bwt = config["reference"] + ".0123"
+        fq = lambda wildcards: samples_df.loc[wildcards.sample, "fq2"]
     output:
-        bam = temp("tmp/{sample}_2.bam")
-    threads: config["threads"]
+        fq_trimmed = "tmp/{sample}_2_trimmed.fastq.gz"
+    log:
+        "logs/{sample}_cutadapt_r2.log"
+    threads: 1
     conda: "../envs/hic_mapping.yaml"
     shell:
         """
-        {config[bwa]} mem -t {threads} {input.ref} {input.fq} | \
-        {config[samtools]} view -@ {threads} -Sb - > {output.bam}
+        cutadapt -u 5 -o {output.fq_trimmed} {input.fq} > {log} 2>&1
+        """
+
+# -----------------------------------------------------------------------------
+# Step 2B: BWA-MEM (Read 2)
+# -----------------------------------------------------------------------------
+rule bwa_mem_r2:
+    input:
+        fq = "tmp/{sample}_2_trimmed.fastq.gz",
+        ref = config["reference"]
+    output:
+        bam = "tmp/{sample}_2.bam"
+    log:
+        "logs/{sample}_bwa_r2.log"
+    threads: config["threads"]
+    resources:
+        mem_mb = 8000
+    conda: "../envs/hic_mapping.yaml"
+    shell:
+        """
+        {config[bwa]} mem -t {threads} {input.ref} {input.fq} 2> {log} | \
+        {config[samtools]} view -h -Sb - > {output.bam} 2>> {log}
         """
 
 # -----------------------------------------------------------------------------
@@ -57,7 +100,7 @@ rule filter_5end:
         bam = "tmp/{sample}_{read}.bam",
         script = config["filter_script"]
     output:
-        bam = temp("tmp/{sample}_{read}_filt.bam")
+        bam = "tmp/{sample}_{read}_filt.bam"
     conda: "../envs/hic_mapping.yaml"
     shell:
         """
@@ -76,7 +119,7 @@ rule pair_and_sort:
         ref_fai = config["reference"] + ".fai",
         script = config["combiner_script"]
     output:
-        bam = temp("tmp/{sample}_paired.bam")
+        bam = "tmp/{sample}_paired.bam"
     threads: config["threads"]
     conda: "../envs/hic_mapping.yaml"
     shell:
@@ -93,7 +136,7 @@ rule add_read_group:
     input:
         bam = "tmp/{sample}_paired.bam"
     output:
-        bam = temp("tmp/{sample}_rg.bam")
+        bam = "tmp/{sample}_rg.bam"
     params:
         tmp_dir = "tmp/{sample}_rg_tmp",
         memory = config["rg_memory"]

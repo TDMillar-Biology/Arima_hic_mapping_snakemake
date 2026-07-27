@@ -5,18 +5,16 @@ rule plot_hic_heatmaps:
     input:
         mcool = "results/{sample}/hic.mcool"
     output:
-        # Whole genome
-        wg_pdf = "results/{sample}/hic_heatmap.pdf",
-        wg_png = "results/{sample}/hic_heatmap.png",
-        # Chromosome specific (using the expected Drosophila chromosomes as a dynamic flag)
-        chrom_pdfs = expand("results/{{sample}}/hic_heatmap_{chrom}.pdf", chrom=["2L", "2R", "3L", "3R", "4", "X", "Y"]),
-        chrom_pngs = expand("results/{{sample}}/hic_heatmap_{chrom}.png", chrom=["2L", "2R", "3L", "3R", "4", "X", "Y"])
+        wg_pdf = "results/{sample}/heatmaps/hic_heatmap_WG_absolute.pdf",
+        wg_png = "results/{sample}/heatmaps/hic_heatmap_WG_absolute.png",
+        wg_bal_pdf = "results/{sample}/heatmaps/hic_heatmap_WG_ICE_balanced.pdf"
     log:
         "logs/{sample}_plot_heatmaps.log"
     threads: 1
-    conda: "../envs/cooler.yaml" # Assuming cooler env has matplotlib and numpy
+    conda: "../envs/cooler.yaml"
     params:
-        outdir = "results/{sample}",
-        sample_name = "{sample}"
+        outdir = "results/{sample}/heatmaps",
+        sample_name = "{sample}",
+        cmap = "RdYlBu_r" #viridis, magma, etc.
     script:
         "../scripts/plot_hic_heatmaps.py"
